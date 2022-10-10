@@ -4,6 +4,7 @@
 package grapher.ui;
 
 import javax.swing.JFrame;
+import javax.swing.JSplitPane;
 import javax.swing.SwingUtilities;
 
 // main that launch a grapher.ui.Grapher
@@ -14,14 +15,19 @@ public class Main extends JFrame {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 
 		Grapher grapher = new Grapher();
+
 		Interaction interaction = new Interaction(grapher);
 		grapher.addMouseListener(interaction);
 		grapher.addMouseMotionListener(interaction);
+		grapher.addMouseWheelListener(interaction);
 		for (String expression : expressions) {
 			grapher.add(expression);
 		}
 
-		add(grapher);
+		FunctionsList fList = new FunctionsList(grapher.functions);
+
+		JSplitPane pane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, fList, grapher);
+		add(pane);
 		pack();
 	}
 
