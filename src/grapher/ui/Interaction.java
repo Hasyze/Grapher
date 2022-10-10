@@ -4,8 +4,10 @@ import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
 
-public class Interaction implements MouseListener, MouseMotionListener {
+public class Interaction implements MouseListener, MouseMotionListener, MouseWheelListener {
 
 	Grapher grapher;
 	State current;
@@ -82,5 +84,10 @@ public class Interaction implements MouseListener, MouseMotionListener {
 	@Override
 	public void mouseExited(MouseEvent e) {
 		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void mouseWheelMoved(MouseWheelEvent e) {
+		grapher.zoom(e.getPoint(), e.getWheelRotation());
 	}
 }

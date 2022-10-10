@@ -6,19 +6,21 @@ package grapher.ui;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
-
 // main that launch a grapher.ui.Grapher
 
 public class Main extends JFrame {
 	Main(String title, String[] expressions) {
 		super(title);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		
-		Grapher grapher = new Grapher();		
-		for(String expression: expressions) {
+
+		Grapher grapher = new Grapher();
+		Interaction interaction = new Interaction(grapher);
+		grapher.addMouseListener(interaction);
+		grapher.addMouseMotionListener(interaction);
+		for (String expression : expressions) {
 			grapher.add(expression);
 		}
-		
+
 		add(grapher);
 		pack();
 	}
@@ -26,8 +28,8 @@ public class Main extends JFrame {
 	public static void main(String[] argv) {
 		final String[] expressions = argv;
 		SwingUtilities.invokeLater(new Runnable() {
-			public void run() { 
-				new Main("grapher", expressions).setVisible(true); 
+			public void run() {
+				new Main("grapher", expressions).setVisible(true);
 			}
 		});
 	}
