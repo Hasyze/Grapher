@@ -3,9 +3,16 @@
 
 package grapher.ui;
 
+import java.awt.Component;
+import java.awt.Container;
+import java.awt.Font;
+import java.util.Vector;
+
 import javax.swing.JFrame;
 import javax.swing.JSplitPane;
 import javax.swing.SwingUtilities;
+
+import grapher.fc.Function;
 
 // main that launch a grapher.ui.Grapher
 
@@ -24,8 +31,8 @@ public class Main extends JFrame {
 			grapher.add(expression);
 		}
 
-		FunctionsList fList = new FunctionsList(grapher.functions);
-
+		FunctionsList fList = new FunctionsList(grapher.functions, grapher);
+		
 		JSplitPane pane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, fList, grapher);
 		add(pane);
 		pack();

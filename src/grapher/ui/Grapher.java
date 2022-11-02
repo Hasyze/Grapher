@@ -12,6 +12,7 @@ package grapher.ui;
 import java.math.BigDecimal;
 
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Color;
@@ -47,12 +48,15 @@ public class Grapher extends JPanel {
 	protected double ymin, ymax;
 
 	protected Vector<Function> functions;
+	protected Vector<Boolean> b;
+	
 	
 	public Grapher() {
 		xmin = -PI/2.; xmax = 3*PI/2;
 		ymin = -1.5;   ymax = 1.5;
 		
 		functions = new Vector<Function>();
+		b = new Vector<Boolean>();
 	}
 	
 	public Dimension getPreferredSize() { return new Dimension(W, H); }
@@ -66,22 +70,22 @@ public class Grapher extends JPanel {
 	
 	void add(Function function) {
 		functions.add(function);
+		b.add(false);
 		repaint();
 	}
-	
 	
 	// drawing
 	
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
-
+		
 		W = getWidth();
 		H = getHeight();
 
 		Graphics2D g2 = (Graphics2D)g;
 		g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, 
 		                    RenderingHints.VALUE_ANTIALIAS_ON);
-
+		
 		// background
 		g2.setColor(Color.WHITE);
 		g2.fillRect(0, 0, W, H);
@@ -116,19 +120,27 @@ public class Grapher extends JPanel {
 			xs[i] = x;
 			Xs[i] = X(x);
 		}
+	
 		
-		for(Function f: functions) {
+		for(Function f: functions ) {
 			// y values
 			int Ys[] = new int[N];
 			for(int i = 0; i < N; i++) {
 				Ys[i] = Y(f.y(xs[i]));
 			}
+			int index = this.functions.indexOf(f);
+			
+			if(b.get(index)) {
+				g2.setStroke(new BasicStroke(3));
+			}else {
+				g2.setStroke(new BasicStroke(1));
+			}
 			
 			g2.drawPolyline(Xs, Ys, N);
 		}
-
+		g2.setStroke(new BasicStroke(1));
 		g2.setClip(null);
-
+		
 		// axes
 		drawXTick(g2, BigDecimal.ZERO);
 		drawYTick(g2, BigDecimal.ZERO);
