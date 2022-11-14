@@ -30,9 +30,11 @@ public class Interaction implements MouseListener, MouseMotionListener, MouseWhe
 		case DRAG:
 			Point n = e.getPoint();
 			if (e.getButton() == MouseEvent.BUTTON1) {
+				System.out.println("drag gauche");
 				grapher.translate(n.x - p.x, n.y - p.y);
 			}
 			if (e.getButton() == MouseEvent.BUTTON3) {
+				System.out.println("drag droit");
 				grapher.zoom(p, n);
 			}
 			p = n;

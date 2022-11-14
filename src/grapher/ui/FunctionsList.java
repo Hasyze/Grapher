@@ -11,4 +11,9 @@ public class FunctionsList extends JList {
 	FunctionsList(Vector<Function> functions) {
 		super(functions);
 	}
+
+	void UpdateValues(Vector<Function> functions) {
+		this.removeAll();
+		this.setListData(functions);
+	}
 }
