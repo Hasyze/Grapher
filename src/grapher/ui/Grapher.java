@@ -132,7 +132,7 @@ public class Grapher extends JPanel {
 			
 			if(b.get(index)) {
 				g2.setStroke(new BasicStroke(3));
-			}else {
+			}else { 
 				g2.setStroke(new BasicStroke(1));
 			}
 			
