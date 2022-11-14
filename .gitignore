@@ -1,2 +1,7 @@
 *.class
 .DS_Store
+/bin/
+.project
+.jar
+.classpath
+build/jar/Grapher.jar
