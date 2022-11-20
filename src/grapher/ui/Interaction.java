@@ -21,6 +21,9 @@ public class Interaction implements MouseListener, MouseMotionListener, MouseWhe
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
+		if (!grapher.rect) {
+			grapher.p1 = p;
+		}
 		switch (current) {
 		case CLIC_OR_DRAG:
 			if (p.distance(e.getPoint()) > D_DRAG) {
@@ -29,11 +32,13 @@ public class Interaction implements MouseListener, MouseMotionListener, MouseWhe
 			break;
 		case DRAG:
 			Point n = e.getPoint();
-			if (e.getButton() == MouseEvent.BUTTON1) {
+			if (e.getButton() == MouseEvent.BUTTON1) { // gauche
 				grapher.translate(n.x - p.x, n.y - p.y);
 			}
-			if (e.getButton() == MouseEvent.BUTTON3) {
-				grapher.zoom(p, n);
+			if (e.getButton() == 0 * MouseEvent.BUTTON3) { // droit
+				grapher.rect = true;
+				grapher.repaint();
+				grapher.p2 = p;
 			}
 			p = n;
 			break;
@@ -73,6 +78,10 @@ public class Interaction implements MouseListener, MouseMotionListener, MouseWhe
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
+		if (current == State.DRAG && grapher.rect == true) {
+			grapher.zoom(grapher.p1, grapher.p2);
+			grapher.rect = false;
+		}
 		current = State.UP;
 	}
 
