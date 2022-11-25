@@ -35,7 +35,7 @@ public class Interaction implements MouseListener, MouseMotionListener, MouseWhe
 			if (e.getButton() == MouseEvent.BUTTON1) { // gauche
 				grapher.translate(n.x - p.x, n.y - p.y);
 			}
-			if (e.getButton() == 0 * MouseEvent.BUTTON3) { // droit
+			if (e.getButton() == MouseEvent.BUTTON3) { // droit
 				grapher.rect = true;
 				grapher.repaint();
 				grapher.p2 = p;
