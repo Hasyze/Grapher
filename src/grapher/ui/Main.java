@@ -3,12 +3,15 @@
 
 package grapher.ui;
 
+
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Font;
 import java.util.Vector;
+import java.awt.BorderLayout;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.SwingUtilities;
 
@@ -22,8 +25,10 @@ public class Main extends JFrame {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 
 		Grapher grapher = new Grapher();
-
 		Interaction interaction = new Interaction(grapher);
+
+		grapher.setInteraction(interaction);
+
 		grapher.addMouseListener(interaction);
 		grapher.addMouseMotionListener(interaction);
 		grapher.addMouseWheelListener(interaction);
@@ -31,11 +36,20 @@ public class Main extends JFrame {
 			grapher.add(expression);
 		}
 
+
 		FunctionsList fList = new FunctionsList(grapher.functions, grapher);
-		
-		JSplitPane pane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, fList, grapher);
+		ToolBar toolb = new ToolBar(grapher, fList);
+
+		JPanel LeftPane = new JPanel(new BorderLayout());
+		LeftPane.add(BorderLayout.CENTER, fList);
+		LeftPane.add(BorderLayout.SOUTH, toolb);
+
+		JSplitPane pane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, LeftPane, grapher);
 		add(pane);
 		pack();
+
+		Menu menu = new Menu(grapher, fList);
+		this.setJMenuBar(menu);
 	}
 
 	public static void main(String[] argv) {

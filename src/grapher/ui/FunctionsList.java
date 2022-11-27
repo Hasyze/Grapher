@@ -17,4 +17,9 @@ public class FunctionsList extends JList {
 		this.addListSelectionListener(new ListHandler(this, g));
 	}
 
+
+	void UpdateValues(Vector<Function> functions) {
+		this.removeAll();
+		this.setListData(functions);
+	}
 }
